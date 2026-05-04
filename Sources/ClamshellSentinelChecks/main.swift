@@ -141,6 +141,21 @@ check(watchlist[1].pattern == #"(?i)make release"#, "command watchlist entries e
 check(watchlist[2].name == "Build", "watchlist supports optional display names")
 check(watchlist[2].pattern == #"(?i)npm\s+run\s+build"#, "watchlist supports command regex entries")
 
+let appExecutablePath = "/Users/jag/Applications/Clamshell Sentinel.app/Contents/MacOS/ClamshellSentinel"
+check(
+    SingleInstance.olderInstancePIDs(
+        executablePath: appExecutablePath,
+        ownPID: 20,
+        snapshots: [
+            ProcessSnapshot(pid: 10, command: appExecutablePath),
+            ProcessSnapshot(pid: 20, command: appExecutablePath),
+            ProcessSnapshot(pid: 30, command: "\(appExecutablePath) --scan-once"),
+            ProcessSnapshot(pid: 40, command: "/tmp/ClamshellSentinel")
+        ]
+    ) == [10],
+    "single instance cleanup targets older app processes only"
+)
+
 let legacyStateData = Data(#"{"enabled":true,"manualAwakeMode":"automatic"}"#.utf8)
 if let legacyState = try? JSONDecoder().decode(SentinelState.self, from: legacyStateData) {
     check(!legacyState.powerOverrideActive, "legacy state defaults power override tracking to false")
