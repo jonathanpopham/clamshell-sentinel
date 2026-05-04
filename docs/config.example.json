@@ -1,0 +1,98 @@
+{
+  "pollIntervalSeconds" : 8,
+  "useCaffeinateFallback" : true,
+  "useDisablesleep" : true,
+  "watchedProcesses" : [
+    {
+      "enabled" : true,
+      "id" : "codex",
+      "matchCommandLine" : false,
+      "name" : "Codex",
+      "pattern" : "(?i)(^|[\\s/])(codex|codex-cli)([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "claude",
+      "matchCommandLine" : false,
+      "name" : "Claude / Claude Code",
+      "pattern" : "(?i)(^|[\\s/])(claude|claude-code)(\\s|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "aider",
+      "matchCommandLine" : false,
+      "name" : "aider",
+      "pattern" : "(?i)(^|[\\s/])aider([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "openclaw",
+      "matchCommandLine" : false,
+      "name" : "OpenClaw",
+      "pattern" : "(?i)(^|[\\s/])(openclaw|clawdbot)([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "hermes",
+      "matchCommandLine" : false,
+      "name" : "Hermes",
+      "pattern" : "(?i)(^|[\\s/])(hermes|hermes-agent)([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "cursor-agent",
+      "matchCommandLine" : false,
+      "name" : "Cursor Agent",
+      "pattern" : "(?i)(^|[\\s/])cursor-agent([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "opencode",
+      "matchCommandLine" : false,
+      "name" : "opencode",
+      "pattern" : "(?i)(^|[\\s/])opencode([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "goose",
+      "matchCommandLine" : false,
+      "name" : "Goose",
+      "pattern" : "(?i)(^|[\\s/])goose([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "openhands",
+      "matchCommandLine" : false,
+      "name" : "OpenHands",
+      "pattern" : "(?i)(^|[\\s/])(openhands|open-hands)([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "swe-agent",
+      "matchCommandLine" : false,
+      "name" : "SWE-agent",
+      "pattern" : "(?i)(^|[\\s/])swe-agent([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "gemini",
+      "matchCommandLine" : false,
+      "name" : "Gemini CLI",
+      "pattern" : "(?i)(^|[\\s/])gemini([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "amp",
+      "matchCommandLine" : false,
+      "name" : "Amp",
+      "pattern" : "(?i)(^|[\\s/])amp([\\s._/-]|$)"
+    },
+    {
+      "enabled" : true,
+      "id" : "docker-cli",
+      "matchCommandLine" : true,
+      "name" : "Docker CLI jobs",
+      "pattern" : "(?i)(^|[\\s/])docker\\s+(build|compose|run|pull|push|exec|logs|up)(\\s|$)"
+    }
+  ]
+}

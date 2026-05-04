@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Clamshell Sentinel app icon">
+  <defs>
+    <linearGradient id="bg" x1="156" y1="84" x2="868" y2="940" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1324"/>
+      <stop offset="0.54" stop-color="#18334a"/>
+      <stop offset="1" stop-color="#36b98f"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="273" y1="261" x2="743" y2="672" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dae7ff"/>
+      <stop offset="1" stop-color="#74f0c1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
+  <path fill="#07101e" fill-opacity=".42" d="M179 680h666c47 0 85 38 85 85s-38 85-85 85H179c-47 0-85-38-85-85s38-85 85-85Z"/>
+  <path fill="#c9d8ef" d="M271 244h482c44 0 80 36 80 80v336H191V324c0-44 36-80 80-80Z"/>
+  <path fill="#10223a" d="M273 318h478v270H273z"/>
+  <path fill="url(#screen)" d="M304 349h416v208H304z" opacity=".88"/>
+  <path fill="#06111f" d="M122 656h780l-50 101H172l-50-101Z"/>
+  <path fill="#253a55" d="M122 656h780l-31 62H153l-31-62Z"/>
+  <path fill="#8fa7c4" d="M419 684h186c15 0 28 12 28 28s-13 28-28 28H419c-15 0-28-12-28-28s13-28 28-28Z" opacity=".58"/>
+  <path fill="#07101e" d="M512 227c112 77 211 83 211 83v135c0 143-86 218-211 277-125-59-211-134-211-277V310s99-6 211-83Z"/>
+  <path fill="#9ff4d1" fill-rule="evenodd" d="M512 273c84 51 158 60 170 61v111c0 111-61 171-170 226-109-55-170-115-170-226V334c12-1 86-10 170-61Zm-69 210c25 0 46-21 46-46s-21-46-46-46-46 21-46 46 21 46 46 46Zm138 0c25 0 46-21 46-46s-21-46-46-46-46 21-46 46 21 46 46 46Z" clip-rule="evenodd"/>
+  <path fill="#0b1324" d="M512 304c71 41 132 49 142 50v90c0 91-47 142-142 191-95-49-142-100-142-191v-90c10-1 71-9 142-50Z"/>
+  <path fill="#9ff4d1" d="M430 460a24 24 0 1 0 0-48 24 24 0 0 0 0 48Zm164 0a24 24 0 1 0 0-48 24 24 0 0 0 0 48Z"/>
+  <path fill="#9ff4d1" d="M444 532c28 25 108 25 136 0 9-8 22 4 14 14-37 48-126 48-164 0-8-10 5-22 14-14Z" opacity=".82"/>
+</svg>
