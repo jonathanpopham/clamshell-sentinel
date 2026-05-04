@@ -124,6 +124,23 @@ check(
     "binds fallback caffeinate assertion to Sentinel process lifetime"
 )
 
+let watchlist = SimpleWatchlist().parse(
+    """
+    # One simple line per entry
+    my-agent
+    command: make release
+    Build = command-regex: (?i)npm\\s+run\\s+build
+    """
+)
+check(watchlist.count == 3, "parses simple watchlist lines")
+check(watchlist[0].name == "my-agent", "watchlist uses literal line as name")
+check(!watchlist[0].matchCommandLine, "single-token watchlist entries match executable/path subjects")
+check(watchlist[0].pattern == #"(?i)(^|[\s/])my-agent([\s._/-]|$)"#, "single-token watchlist entries build executable patterns")
+check(watchlist[1].matchCommandLine, "command watchlist entries match full command lines")
+check(watchlist[1].pattern == #"(?i)make release"#, "command watchlist entries escape literal commands")
+check(watchlist[2].name == "Build", "watchlist supports optional display names")
+check(watchlist[2].pattern == #"(?i)npm\s+run\s+build"#, "watchlist supports command regex entries")
+
 let legacyStateData = Data(#"{"enabled":true,"manualAwakeMode":"automatic"}"#.utf8)
 if let legacyState = try? JSONDecoder().decode(SentinelState.self, from: legacyStateData) {
     check(!legacyState.powerOverrideActive, "legacy state defaults power override tracking to false")

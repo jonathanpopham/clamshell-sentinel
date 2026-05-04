@@ -124,28 +124,39 @@ public extension SentinelConfig {
 
     static let defaultConfigDirectoryName = "clamshell-sentinel"
     static let defaultConfigFileName = "config.json"
+    static let defaultWatchlistFileName = "watchlist.txt"
 }
 
 public final class ConfigStore: Sendable {
     public let configURL: URL
+    private let watchlistStore: WatchlistStore
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
 
-    public init(configURL: URL = ConfigStore.defaultConfigURL()) {
+    public init(
+        configURL: URL = ConfigStore.defaultConfigURL(),
+        watchlistStore: WatchlistStore = WatchlistStore()
+    ) {
         self.configURL = configURL
+        self.watchlistStore = watchlistStore
         self.encoder = JSONEncoder()
         self.decoder = JSONDecoder()
         self.encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
     }
 
     public func loadOrCreate() throws -> SentinelConfig {
+        let watchlistProcesses = try watchlistStore.loadOrCreate()
+        var config: SentinelConfig
+
         if FileManager.default.fileExists(atPath: configURL.path) {
             let data = try Data(contentsOf: configURL)
-            return try decoder.decode(SentinelConfig.self, from: data)
+            config = try decoder.decode(SentinelConfig.self, from: data)
+        } else {
+            config = SentinelConfig()
+            try save(config)
         }
 
-        let config = SentinelConfig()
-        try save(config)
+        config.watchedProcesses.append(contentsOf: watchlistProcesses)
         return config
     }
 

@@ -38,6 +38,8 @@ install: app
 	mkdir -p "$(CONFIG_DIR)" "$(HOME)/Library/LaunchAgents"
 	"$(INSTALL_DIR)/$(APP_NAME).app/Contents/MacOS/$(EXECUTABLE)" --print-default-config > "$(CONFIG_DIR)/config.json.tmp"
 	if [ ! -f "$(CONFIG_DIR)/config.json" ]; then mv "$(CONFIG_DIR)/config.json.tmp" "$(CONFIG_DIR)/config.json"; else rm "$(CONFIG_DIR)/config.json.tmp"; fi
+	"$(INSTALL_DIR)/$(APP_NAME).app/Contents/MacOS/$(EXECUTABLE)" --print-default-watchlist > "$(CONFIG_DIR)/watchlist.txt.tmp"
+	if [ ! -f "$(CONFIG_DIR)/watchlist.txt" ]; then mv "$(CONFIG_DIR)/watchlist.txt.tmp" "$(CONFIG_DIR)/watchlist.txt"; else rm "$(CONFIG_DIR)/watchlist.txt.tmp"; fi
 	printf '%s\n' \
 		'<?xml version="1.0" encoding="UTF-8"?>' \
 		'<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' \
@@ -59,7 +61,7 @@ install: app
 	launchctl bootstrap "gui/$$(id -u)" "$(LAUNCH_AGENT)"
 	launchctl kickstart -k "gui/$$(id -u)/$(BUNDLE_ID)"
 	@echo "Installed $(INSTALL_DIR)/$(APP_NAME).app"
-	@echo "Config: $(CONFIG_DIR)/config.json"
+	@echo "Watchlist: $(CONFIG_DIR)/watchlist.txt"
 
 uninstall:
 	launchctl bootout "gui/$$(id -u)" "$(LAUNCH_AGENT)" >/dev/null 2>&1 || true

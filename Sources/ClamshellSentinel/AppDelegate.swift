@@ -6,6 +6,7 @@ import Foundation
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     private let configStore = ConfigStore()
+    private let watchlistStore = WatchlistStore()
     private let stateStore = StateStore()
     private let processLister = PSProcessLister()
     private let matcher = ProcessMatcher()
@@ -120,11 +121,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         checkNow.target = self
         menu.addItem(checkNow)
 
-        let openConfig = NSMenuItem(title: "Open Config", action: #selector(openConfig), keyEquivalent: ",")
+        let openWatchlist = NSMenuItem(title: "Edit Watchlist", action: #selector(openWatchlist), keyEquivalent: ",")
+        openWatchlist.target = self
+        menu.addItem(openWatchlist)
+
+        let openConfig = NSMenuItem(title: "Open Advanced Config", action: #selector(openConfig), keyEquivalent: "")
         openConfig.target = self
         menu.addItem(openConfig)
 
-        let revealConfig = NSMenuItem(title: "Reveal Config", action: #selector(revealConfig), keyEquivalent: "")
+        let revealConfig = NSMenuItem(title: "Reveal Config Folder", action: #selector(revealConfig), keyEquivalent: "")
         revealConfig.target = self
         menu.addItem(revealConfig)
 
@@ -183,6 +188,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         refresh()
     }
 
+    @objc private func openWatchlist() {
+        do {
+            _ = try configStore.loadOrCreate()
+            NSWorkspace.shared.open(watchlistStore.watchlistURL)
+        } catch {
+            lastRefreshError = error.localizedDescription
+            rebuildMenu()
+        }
+    }
+
     @objc private func openConfig() {
         do {
             _ = try configStore.loadOrCreate()
@@ -196,7 +211,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func revealConfig() {
         do {
             _ = try configStore.loadOrCreate()
-            NSWorkspace.shared.activateFileViewerSelecting([configStore.configURL])
+            NSWorkspace.shared.activateFileViewerSelecting([watchlistStore.watchlistURL])
         } catch {
             lastRefreshError = error.localizedDescription
             rebuildMenu()
