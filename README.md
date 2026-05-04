@@ -65,6 +65,7 @@ See [docs/config.example.json](docs/config.example.json) for the default config.
 
 ```bash
 make check
+make power-smoke
 make app
 make install
 ```
@@ -76,6 +77,8 @@ swift run ClamshellSentinelChecks
 swift run ClamshellSentinel --scan-once
 swift run ClamshellSentinel --print-default-config
 ```
+
+`make power-smoke` does not change power settings. It only checks that this Mac recognizes `pmset disablesleep`, rejects unknown `pmset` settings, and has `caffeinate` available.
 
 ## Uninstall
 
