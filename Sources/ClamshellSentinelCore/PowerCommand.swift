@@ -127,8 +127,11 @@ public struct PrivilegedPMSet: Sendable {
 
 public final class CaffeinateAssertion: @unchecked Sendable {
     private var process: Process?
+    private let ownerPID: Int32
 
-    public init() {}
+    public init(ownerPID: Int32 = ProcessInfo.processInfo.processIdentifier) {
+        self.ownerPID = ownerPID
+    }
 
     public var isActive: Bool {
         process?.isRunning == true
@@ -141,7 +144,7 @@ public final class CaffeinateAssertion: @unchecked Sendable {
 
         let assertion = Process()
         assertion.executableURL = URL(fileURLWithPath: "/usr/bin/caffeinate")
-        assertion.arguments = ["-dimsu"]
+        assertion.arguments = Self.arguments(ownerPID: ownerPID)
         assertion.standardOutput = Pipe()
         assertion.standardError = Pipe()
         try assertion.run()
@@ -158,6 +161,10 @@ public final class CaffeinateAssertion: @unchecked Sendable {
         }
 
         self.process = nil
+    }
+
+    public static func arguments(ownerPID: Int32) -> [String] {
+        ["-dimsu", "-w", String(ownerPID)]
     }
 }
 

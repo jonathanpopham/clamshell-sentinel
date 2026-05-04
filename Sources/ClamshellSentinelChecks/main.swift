@@ -119,6 +119,11 @@ check(
     "escapes AppleScript shell command"
 )
 
+check(
+    CaffeinateAssertion.arguments(ownerPID: 12345) == ["-dimsu", "-w", "12345"],
+    "binds fallback caffeinate assertion to Sentinel process lifetime"
+)
+
 let legacyStateData = Data(#"{"enabled":true,"manualAwakeMode":"automatic"}"#.utf8)
 if let legacyState = try? JSONDecoder().decode(SentinelState.self, from: legacyStateData) {
     check(!legacyState.powerOverrideActive, "legacy state defaults power override tracking to false")
