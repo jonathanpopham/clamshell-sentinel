@@ -8,7 +8,7 @@ APP_DIR := $(BUILD_APP_DIR)/$(APP_NAME).app
 RELEASE_DIR := .build/release
 LAUNCH_AGENT := $(HOME)/Library/LaunchAgents/$(BUNDLE_ID).plist
 
-.PHONY: all build check app install uninstall clean
+.PHONY: all build check power-smoke app install uninstall clean
 
 all: app
 
@@ -17,6 +17,9 @@ build:
 
 check:
 	swift run ClamshellSentinelChecks
+
+power-smoke:
+	./scripts/power-smoke.sh
 
 app: build
 	rm -rf "$(APP_DIR)"
