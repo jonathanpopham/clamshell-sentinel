@@ -14,8 +14,14 @@ enum CLI {
         case "--print-default-config":
             printDefaultConfig()
             return true
+        case "--print-default-watchlist":
+            print(SimpleWatchlist.defaultText, terminator: "")
+            return true
         case "--config-path":
             print(ConfigStore.defaultConfigURL().path)
+            return true
+        case "--watchlist-path":
+            print(WatchlistStore.defaultWatchlistURL().path)
             return true
         case "--scan-once":
             scanOnce()

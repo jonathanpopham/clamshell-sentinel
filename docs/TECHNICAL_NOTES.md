@@ -39,4 +39,14 @@ If the project grows, a small audited privileged helper is the right next step.
 
 Default agent patterns use smart matching against the executable path and wrapper command lines. This avoids false positives like `rg codex README.md`.
 
-For custom terminal jobs, set `matchCommandLine` to `true` so the regex runs against the full command line.
+For custom terminal jobs, the primary interface is `~/.config/clamshell-sentinel/watchlist.txt`. Each non-comment line becomes a watched process:
+
+```text
+my-agent
+command: make release
+docker compose up
+```
+
+Single-token lines match executable/path subjects. Lines with spaces, or lines prefixed with `command:`, match the full command line. Advanced users can still use `regex:` or `command-regex:`.
+
+For JSON config entries, set `matchCommandLine` to `true` so the regex runs against the full command line.

@@ -8,9 +8,16 @@ It watches local processes such as Codex, Claude, aider, OpenClaw, Hermes, Curso
 
 ## Install
 
+One line:
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/jonathanpopham/clamshell-sentinel/main/scripts/install.sh)"
 ```
+
+That installs `Clamshell Sentinel.app` into `~/Applications`, starts the menu bar app at login, and creates:
+
+- `~/.config/clamshell-sentinel/watchlist.txt`
+- `~/.config/clamshell-sentinel/config.json`
 
 Or build from source:
 
@@ -20,7 +27,11 @@ cd clamshell-sentinel
 ./scripts/install.sh
 ```
 
-The installer builds `Clamshell Sentinel.app`, installs it into `~/Applications`, creates `~/.config/clamshell-sentinel/config.json`, and registers a user LaunchAgent so the menu bar app starts at login.
+Verify:
+
+```bash
+~/Applications/Clamshell\ Sentinel.app/Contents/MacOS/ClamshellSentinel --scan-once
+```
 
 ## How It Works
 
@@ -42,24 +53,27 @@ Run a local capability report with:
 Edit:
 
 ```bash
-~/.config/clamshell-sentinel/config.json
+~/.config/clamshell-sentinel/watchlist.txt
 ```
 
-Add a process:
+Use one simple line per thing you want to watch:
 
-```json
-{
-  "id": "release-build",
-  "name": "Release build",
-  "pattern": "(?i)make\\s+release",
-  "enabled": true,
-  "matchCommandLine": true
-}
+```text
+my-agent
+command: make release
+docker compose up
 ```
 
-`pattern` is an `NSRegularExpression`. Leave `matchCommandLine` as `false` for executable/path-style matching, or set it to `true` for full terminal command matching.
+Save the file. Sentinel reloads it automatically within a few seconds.
 
-See [docs/config.example.json](docs/config.example.json) for the default config.
+Rules:
+
+- `my-agent` watches an executable or path containing `my-agent`.
+- `command: make release` watches the full command line.
+- A line with spaces, like `docker compose up`, is treated as a command line.
+- `regex: ...` and `command-regex: ...` are available when a literal line is not enough.
+
+The menu bar item also has `Edit Watchlist`, which opens the file directly. Advanced settings stay in `~/.config/clamshell-sentinel/config.json`; see [docs/config.example.json](docs/config.example.json).
 
 ## Local Development
 
